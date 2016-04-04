@@ -50,3 +50,30 @@ Poll the currency conversion rates from an API or scrape them from a website on 
 
 class DifferentCurrencyCodeError(Exception):
     pass
+
+
+"""returns the status code of what the website is returning"""
+    def get_status_code(self):
+        return self.open_url().getcode()
+
+    """opens the url and returns the html response"""
+    def open_url(self):
+        return request.urlopen(self._a_web_address)
+
+    """reads the html response"""
+    def get_read_html_response(self):
+        response = self.open_url()
+        return response.read()
+
+    """returns the url response as a string"""
+    def get_url_string_response(self):
+        if self.get_status_code() != 200:
+            print("URL is not responding")
+        else:
+            return self.get_read_html_response()
+
+    def get_json_response(self):
+        data = self.get_read_html_response()
+        d = json.loads(data)
+        print("JSON")
+        print(d)

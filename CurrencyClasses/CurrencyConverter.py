@@ -8,5 +8,7 @@
 
 
 class CurrencyConverter():
-    def __init__(self):
-        pass
+    def __init__(self, a_dict):
+        self._dict_of_currency = a_dict
+
+

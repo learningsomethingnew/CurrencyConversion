@@ -1,3 +1,7 @@
+####################################################################
+#
+####################################################################
+
 # Must be created with an amount and a currency code.
 # Must equal another Currency object with the same amount and currency code.
 # Must NOT equal another Currency object with different amount or currency code.

@@ -48,3 +48,5 @@ You guessed it. Modify your CurrencyTrader to accept an array of CurrencyConvert
 Impossible Mode (optional)
 Poll the currency conversion rates from an API or scrape them from a website on the internet using either the built-in urllib module. Use these semi-real time rates in conjunction with your CurrencyTrader to attempt real-world statistical arbitrage.
 
+class DifferentCurrencyCodeError(Exception):
+    pass

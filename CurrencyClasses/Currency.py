@@ -2,8 +2,8 @@
 #
 ####################################################################
 
-# Must be created with an amount and a currency code.
-# Must equal another Currency object with the same amount and currency code.
+# Must be created with an amount and a currency code. ✓
+# Must equal another Currency object with the same amount and currency code. ✓
 # Must NOT equal another Currency object with different amount or currency code.
 # Must be able to be added to another Currency object with the same currency code.
 # Must be able to be subtracted by another Currency object with the same currency code.
@@ -15,6 +15,29 @@
 #   arguments, one being the amount and the other being the currency code.
 
 class Currency():
+    """Takes in an amount and currency code"""
+    def __init__(self, a_amount, a_currency_code = None):
+        self._amount = a_amount
+        self._currency_type = a_currency_code
 
-    def __init__(self):
-        pass
+
+        if self._currency_type == None:
+            pass
+
+
+    def __eq__(self, other):
+        if self._currency_type == other._currency_type:
+            if self._amount == other._amount:
+                return True
+            else:
+                return False
+        else:
+            return False
+
+
+if __name__ == '__main__':
+    f = Currency(5, 'USD')
+    d = Currency(5, 'USD')
+    print(f == d)
+
+

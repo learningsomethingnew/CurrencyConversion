@@ -1,5 +1,6 @@
 ####################################################################
-#
+#Currency class that sets up specific methods for adding currencies
+# together
 ####################################################################
 
 # Must be created with an amount and a currency code. ✓
@@ -14,14 +15,16 @@
 #   "$1.20" or "€ 7.00", and figure out the correct currency code. It can also take two
 #   arguments, one being the amount and the other being the currency code.
 
-#handle float/int multiplication
+  # handle float/int multiplication
 from decimal import *
+
 
 class Currency():
     """Takes in an amount and currency code"""
-    def __init__(self, a_amount, a_currency_code = None):
 
-        #Decimal precision
+    def __init__(self, a_amount, a_currency_code=None):
+
+        # Decimal precision
         getcontext().prec = 2
 
         self.amount = a_amount
@@ -30,7 +33,7 @@ class Currency():
         if self.currency_type == None:
             pass
 
-
+    """Overriding the equality method to due a quick test on same currency type"""
     def __eq__(self, other):
         if self.currency_type == other.currency_type:
             if self.amount == other.amount:
@@ -40,38 +43,52 @@ class Currency():
         else:
             return False
 
+    """Overriding the addition method to due a quick test on same currency type"""
     def __add__(self, other):
         if self.currency_type == other.currency_type:
-            return Decimal(self.amount) + Decimal(other.amount)
+            return Currency((Decimal(self.amount) + Decimal(other.amount)), self.currency_type)
         else:
             raise DifferentCurrencyCodeError('Currencies %s and %s were attempted to be added'
                                              % (self.currency_type, other.currency_type))
 
+    """Overriding the subtraction method to due a quick test on same currency type"""
     def __sub__(self, other):
         if self.currency_type == other.currency_type:
-            return Decimal(self.amount) - Decimal(other.amount)
+            return Currency ((Decimal(self.amount) - Decimal(other.amount)), self.currency_type)
         else:
             raise DifferentCurrencyCodeError('Currencies %s and %s were attempted to be subtracted'
                                              % (self.currency_type, other.currency_type))
 
+    """Overriding the multiplication method to due a quick test on same currency type"""
     def __mul__(self, other):
         if self.currency_type == other.currency_type:
-            return Decimal(self.amount)*(Decimal(other.amount))
+            return Currency ((Decimal(self.amount) * Decimal(other.amount)), self.currency_type)
         else:
             raise DifferentCurrencyCodeError(str('Currencies %s and %s were attempted to be multiplied'
                                                  % (self.currency_type, other.currency_type)))
+
+    """Print variables of a class"""
+    def __str__(self):
+        return str("This currency class contains %s %s" %(self.currency_type, str(self.amount)))
 
 """Is raised when two objects of varying currencies are attempted to be added"""
 class DifferentCurrencyCodeError(Exception):
     def __init__(self, *args, **kwargs):
         Exception.__init__(self, *args, **kwargs)
 
+
 if __name__ == '__main__':
     f = Currency(5.00004, 'USD')
     d = Currency(9.9, 'USD')
     s = Currency(3, 'GBP')
-    print(f*d)
+    print("Result of Add instance f & d")
+    print(f + d)
+    print("F instance")
+    print(f)
+    print("D instance")
+    print(d)
+
     print(f == d)
-    print(d+f)
+    print(d*f)
     #print(d+s)
     #print(d*s)

@@ -4,6 +4,7 @@
 
 from urllib.request import urlopen
 from json import loads
+import pickle
 
 
 class URLActions():
@@ -20,7 +21,9 @@ class URLActions():
         data = urlopen(self._a_web_address).read().decode('utf8')
         return loads(data)
 
-
+    def save_to_file(self):
+        data = self.open_read__decode_return_json()
+        pickle.dump(data, open("currencies.p", "wb"))
 
 
 
@@ -29,6 +32,4 @@ if __name__ == '__main__':
     url = 'http://api.fixer.io/latest?base=USD'
     f = URLActions(url)
     print(f.get_site_status_code())
-    print(f.open_read__decode_return())
-    data = f.open_read__decode_return()
-    print(f.get_json_data(data))
+    f.save_to_file()
